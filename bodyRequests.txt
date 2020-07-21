@@ -1,0 +1,17 @@
+[
+{
+   "op": "replace",
+   "path": "/name",
+   "value": "Updated - Sample"
+
+}
+,
+{
+   "op": "replace",
+   "path": "/description",
+   "value": "Updated - Sample3"
+
+}
+]
+
+---body messages sent using path verb

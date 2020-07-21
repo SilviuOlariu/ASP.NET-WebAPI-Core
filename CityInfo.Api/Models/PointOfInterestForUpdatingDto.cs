@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CityInfo.Api.Models
 {
-    public class PointOfInterestForCreatingDto
+    public class PointOfInterestForUpdatingDto
     {
-        [Required(ErrorMessage ="you should provide a description")]
+        [Required(ErrorMessage = "you should provide a description")]
         [MaxLength(50)]
         public string Name { get; set; }
         [MaxLength(256)]
