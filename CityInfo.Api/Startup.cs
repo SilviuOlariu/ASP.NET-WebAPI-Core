@@ -47,6 +47,9 @@ namespace CityInfo.Api
                     o.UseSqlServer(connectionString);
                 }
                 );
+
+            services.AddScoped<ICityInfoRepository, CityInfoRepository>();
+
             // .AddJsonOptions(o =>
             //{
             //    if (o.SerializerSettings.ContractResolver != null)

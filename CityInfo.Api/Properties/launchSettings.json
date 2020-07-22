@@ -11,8 +11,8 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Production",
-        "ConnectionStrings:cityInfoDBConnectionString": "Server=myproductionserver;Database=CityInfoDatabase;UserId=CertainlyNotSA;Password=CertainlyNotSA;"
+        "ASPNETCORE_ENVIRONMENT": "Development"
+        
       }
     },
     "CityInfo.Api": {
