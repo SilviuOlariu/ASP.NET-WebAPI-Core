@@ -1,6 +1,8 @@
 ﻿using CityInfo.Api.Models;
+using CityInfo.Api.Services;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +14,35 @@ namespace CityInfo.Api.Controllers
     [Route("api/cities/{cityId}/pointOfInterest")]
     public class PointsOfInterestsController : ControllerBase
     {
+        private readonly ILogger<PointsOfInterestsController> _logger;
+        private readonly IMailService _mailService;
+
+        public PointsOfInterestsController(ILogger<PointsOfInterestsController> logger, IMailService mailService)
+        {
+            _logger = logger;
+            _mailService = mailService;
+        }
         [HttpGet]
         public IActionResult GetPointOfInterest(int cityId)
         {
-
-            var city = CityDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
-            if (city == null || city.PointsOfInterests.Count == 0)
+            try 
             {
-                return NotFound();
-            }
+                //throw new Exception();
 
-            return Ok(city.PointsOfInterests);
+                var city = CityDataStore.Current.Cities.FirstOrDefault(c => c.Id == cityId);
+                if (city == null || city.PointsOfInterests.Count == 0)
+                {
+                    _logger.LogInformation($"The {cityId} couldn't be found");
+                    return NotFound();
+                }
+
+                return Ok(city.PointsOfInterests);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogCritical($"Exception while getting points of interest for city with id {cityId}");
+                return StatusCode(500, "A problem happened while handling your request");
+            }
         }
         [HttpGet("{id}", Name = "GetPointsOfInterests")]
         public IActionResult GetPointOfInterest(int cityId, int id)
@@ -67,6 +87,8 @@ namespace CityInfo.Api.Controllers
             };
 
             city.PointsOfInterests.Add(pointOfInterestDto);
+
+            
 
             return CreatedAtRoute("GetPointsOfInterests", new { cityId, id = pointOfInterestDto.Id }, pointOfInterestDto);
 
@@ -145,7 +167,9 @@ namespace CityInfo.Api.Controllers
 
             city.PointsOfInterests.Remove(pointOfInterestFromStore);
 
-            return NoContent();
+            _mailService.SendMail("point deleted", "your point of interest has been deleted");
+
+            return NoContent(); 
         }
     }
 }
