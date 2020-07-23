@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CityInfo.Api.Contexts;
 using CityInfo.Api.Services;
 using Microsoft.AspNetCore.Builder;
@@ -49,6 +50,7 @@ namespace CityInfo.Api
                 );
 
             services.AddScoped<ICityInfoRepository, CityInfoRepository>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             // .AddJsonOptions(o =>
             //{

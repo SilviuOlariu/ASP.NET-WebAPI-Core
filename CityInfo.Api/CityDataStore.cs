@@ -16,7 +16,7 @@ namespace CityInfo.Api
             Cities = new List<CityDto>()
             {
                 new CityDto {Id = 1, Name = "Cluj-Napoca", Description = "The most expenise city from Romania",
-                    PointsOfInterests =
+                    PointsOfInterest =
                     new List<PointOfInterestDto>()
                     {
                         new PointOfInterestDto {Id=1, Description = "The Square", Name ="main square"},
@@ -25,7 +25,7 @@ namespace CityInfo.Api
                     }},
 
                 new CityDto {Id = 2, Name ="Iasi", Description ="The capital of Moldova",
-                  PointsOfInterests =
+                  PointsOfInterest =
                     new List<PointOfInterestDto>()
                     {
                         new PointOfInterestDto {Id=3, Description = "Sample3", Name ="sample name"},
